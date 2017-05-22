@@ -63,9 +63,15 @@ public class Game {
      *        2 = bad guess.  continue game
      *        3 = bad guess.  Lost game.
      */
-    public int playGame(char guess) {
-            boolean correctGuess = updateDisplayWord(guess);
-            if (correctGuess==false) { 
+    public int playGame(char guess) 
+    {
+            boolean correctGuess = updateDisplayWord(guess);         
+            boolean correctInput = isInputCorrect(guess);
+            if (!correctInput)
+            {
+                return 4;
+            }
+            else if (correctGuess==false) { 
                 state++;
                 if (state==7) {
                     // user has lost game
@@ -73,12 +79,30 @@ public class Game {
                 } else {
                     return 2; // bad guess, continue
                 }
-            } else if ( displayWord.indexOf("_") >= 0) {
+            }
+            else if ( displayWord.indexOf("_") >= 0) {
                return 0; // continue game, with good guess
             } else {
                return 1; // all characters has been guessed, user has won game.
             }
     }
+    
+    
+    /*
+     *Check the input to see if it is legal
+     *If it is not a letter return false
+     *If the input is more than 1 letter return false
+    */ 
+    private boolean isInputCorrect(char guess)
+    {
+        boolean correctInput = true;
+        
+        if(Character.isLetter(guess) != true)
+            correctInput = false;
+        
+        return correctInput;
+    }
+    
     /**
      * update display word to show any occurrences of guess
      * There is a space character between each letter, and 
@@ -89,8 +113,8 @@ public class Game {
     private boolean updateDisplayWord(char guess){
         boolean correctGuess = false;
         for (int i=0; i<word.length(); i++) {
-            if (word.charAt(i)==guess){
-                    displayWord.replace(2*i, 2*i+1, Character.toString(guess)); 
+            if (word.charAt(i)==Character.toLowerCase(guess)){
+                    displayWord.replace(2*i, 2*i+1, Character.toString(Character.toLowerCase(guess))); 
                     correctGuess=true;
                 }
         }
