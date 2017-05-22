@@ -101,6 +101,7 @@ public class MyHttpServer {
                                             + "<form action=\"/\" method=\"get\"> "
                                             + "Guess a character <input type=\"text\" name=\"guess\"><br>"
                                             + "<input type=\"submit\" value=\"Submit\">" + "</form></body></html>";
+                                            break;
                                     }
                                     
                                 }
