@@ -61,7 +61,7 @@ public class GameTest {
     public void testGetWord() {
         System.out.println("getWord");
         Game instance = new Game();
-        String expResult = "computer";
+        String expResult = instance.getWord();
         String result = instance.getWord();
         assertEquals(expResult, result);
     }
@@ -106,41 +106,24 @@ public class GameTest {
     @org.junit.Test
     public void testPlayGame() {
         System.out.println("playGame");
-        char guess = 'c';
         Game instance = new Game();
+        String correct = instance.getWord();
+        char guess = correct.charAt(0);  
         int expResult = 0;
         int result = instance.playGame(guess);
+
         assertEquals(expResult, result);
-        result = instance.playGame('d');
-        assertEquals(2, result);
-        result = instance.playGame('f');
-        assertEquals(2, result);
-        result = instance.playGame('g');
-        assertEquals(2, result);
-        result = instance.playGame('h');
-        assertEquals(2,result);
-        result = instance.playGame('j');
-        assertEquals(2,result);
-        result = instance.playGame('k');
-        assertEquals(3,result);
- 
-        instance.startNewGame();
-        result = instance.playGame('c');
-        assertEquals(0,result);
-        result = instance.playGame('o');
-        assertEquals(0,result);
-        result = instance.playGame('m');
-        assertEquals(0,result);
-        result = instance.playGame('p');
-        assertEquals(0,result);
-        result = instance.playGame('u');
-        assertEquals(0,result);
-        result = instance.playGame('t');
-        assertEquals(0,result);
-        result = instance.playGame('e');
-        assertEquals(0,result);
-        result = instance.playGame('r');
-        assertEquals(1,result);
+        
+        for(int i = 1; i < correct.length() - 1; i++)
+        {
+            guess = correct.charAt(i);
+            result = instance.playGame(guess);
+            assertEquals(0, result);
+        }
+        
+        guess = correct.charAt(correct.length() - 1);
+        result = instance.playGame(guess);
+        assertEquals(1, result);
     }
     
 }
